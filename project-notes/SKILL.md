@@ -13,66 +13,33 @@ symlinked into that project's checkout as `notes/`.
 Full conventions (structure, when to write, splitting large files, git workflow) live in
 `~/notes/README.md` — read it before writing content. This skill covers the mechanical setup.
 
-## Setting up notes for a new project
+## Setting up notes for a project
 
-Given a project repo at `<repo>`, first determine `<Project>` — the directory name to use under
-`~/notes`:
-
-- If the user supplied a name explicitly, use it and skip the rest of this step.
-- Otherwise, default to the project's **identity**, not the local checkout path — checkout
-  dirnames are arbitrary/local and often diverge from the project's real name (e.g. a checkout at
-  `~/Desktop/code/sec` for a repo actually called `secrag`). In priority order: (1) the GitHub/
-  GitLab repo name from `git remote get-url origin` (strip org/owner and `.git`), since that's
-  the name anyone else would recognize; (2) failing that, the package/distribution name from the
-  project's own manifest (`pyproject.toml`'s `[project].name`, `package.json`'s `"name"`,
-  `Cargo.toml`'s `[package].name`, etc.) if one is unambiguous; (3) only fall back to the local
-  checkout directory's basename if neither signal exists (no remote, no manifest, e.g. a fresh
-  local-only repo). If the checkout dirname and the derived identity **disagree** and neither
-  source is clearly authoritative, ask the user rather than silently picking one — this is a
-  one-time naming decision that's awkward to rename later (it's referenced from git history in
-  `~/notes` once committed).
+Determine `<Project>` — the directory name to use under `~/notes`. If the user supplied one, use
+it. Otherwise default to the project's identity rather than the local checkout path (checkout
+dirnames are often local/arbitrary): the repo name from `git remote get-url origin`, or failing
+that the package/manifest name (`pyproject.toml`, `package.json`, `Cargo.toml`, etc.). If that
+disagrees with the checkout dirname and neither is clearly authoritative, ask — it's awkward to
+rename later once committed.
 
 Then:
 
-1. Ensure `~/notes` exists and is the git repo (should already exist after first use — don't
-   re-init if `~/notes/.git` is present).
+1. Ensure `~/notes` exists as a git repo (don't re-init if `~/notes/.git` is already present).
 2. `mkdir -p ~/notes/<Project>` if missing.
 3. If `~/notes/<Project>/README.md` doesn't exist, create one: a short index describing the
-   directory's purpose and (once there are files) a table of `file — what it covers`. Match the
-   style of an existing project dir under `~/notes/` if one exists, as a template.
-4. Compute the actual relative path from `<repo>` to `~/notes/<Project>` and symlink it — do not
-   assume `<repo>` and `~/notes` are siblings (they often aren't; e.g. a checkout nested several
-   directories deep under `~/Desktop/...` needs `../../../notes/<Project>`, not `../notes/<Project>`).
-   Compute it directly rather than guessing depth by eye, e.g.:
+   directory's purpose, and (once there are files) a `file — what it covers` table. Match an
+   existing project dir's style as a template if one exists.
+4. Compute the actual relative path from `<repo>` to `~/notes/<Project>` and symlink it — don't
+   assume they're siblings:
    ```bash
    cd <repo> && ln -s "$(python3 -c "import os; print(os.path.relpath(os.path.expanduser('~/notes/<Project>'), '.'))")" notes
    ```
-   Then verify with `readlink notes` and `ls notes` that it resolves and lists the expected files.
-5. Add a `notes` line to `<repo>/.gitignore` if not already present. **No trailing slash** —
-   `notes/` does not match a symlink (git treats it as a file, not a directory, for that pattern)
-   and will silently fail to ignore it. Verify with `git status` that `notes` shows as untracked/
-   ignored, not staged.
-6. Do not commit or push the symlink itself, and do not add a "read notes first" pointer to the
-   user's global `CLAUDE.md` — the user points agents to `notes/` explicitly when relevant.
+   Verify with `readlink notes` and `ls notes`.
+5. Add a `notes` line to `<repo>/.gitignore` (**no trailing slash** — `notes/` doesn't match a
+   symlink and will silently fail to ignore it). Verify with `git status`.
+6. Don't commit/push the symlink itself, and don't add a "read notes first" pointer to the user's
+   global `CLAUDE.md` — the user points agents to `notes/` explicitly when relevant.
 7. `git add`/`commit`/`push` inside `~/notes` (not `<repo>`) after content changes.
-
-## Migrating an existing local `notes/` folder
-
-If `<repo>/notes` is a real directory (not a symlink) with existing content, migrate it instead of
-starting fresh:
-
-1. `sha256sum` every file under `<repo>/notes` before touching anything, so the move can be
-   verified.
-2. `mkdir -p ~/notes/<Project>`, then `mv <repo>/notes/* ~/notes/<Project>/` (including any
-   `archive/` or other subdirectories — move everything, don't cherry-pick).
-3. Re-run `sha256sum` against the new location and diff against the pre-move checksums — every
-   file must match before proceeding. Only then remove the now-empty `<repo>/notes` directory.
-4. Skim the migrated files (at least the README/index) for claims that are now false because of
-   the move itself — most commonly "local, never pushed" / "gitignored, not tracked" language
-   written back when the notes lived untracked in `<repo>`. That's no longer true: content is now
-   tracked and pushed, just to `~/notes` instead of `<repo>`. Fix any such wording in place rather
-   than leaving it stale.
-5. Continue with steps 4–7 above (symlink, `.gitignore`, commit/push in `~/notes`).
 
 ## Using notes in an existing project
 
