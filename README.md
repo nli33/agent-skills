@@ -1,6 +1,6 @@
 # skills
 
-Personal collection of Claude Code skills. One directory per skill, each with its own `SKILL.md`.
+Personal collection of agent skills.
 
 ## Skills
 
