@@ -15,10 +15,7 @@ Claude Code loads a skill from `~/.claude/skills/<name>/SKILL.md`. Symlink the s
 from a clone of this repo, rather than copying it (so it stays in sync with `git pull`):
 
 ```bash
-git clone git@github.com:nli33/skills.git ~/skills   # once
-ln -s ~/skills/<name> ~/.claude/skills/<name>
+git clone git@github.com:nli33/agent-skills.git ~/skills   # once
+ln -s ~/agent-skills/<name> ~/.claude/agent-skills/<name>
 ```
 
-## Adding a new skill
-
-`mkdir <name> && $EDITOR <name>/SKILL.md`, add it to the table above, commit, push.
