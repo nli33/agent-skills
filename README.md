@@ -6,7 +6,7 @@ Personal collection of agent skills.
 
 | Skill | What it does |
 |---|---|
-| [project-notes](project-notes/SKILL.md) | Link a repo's tangential research notes into the centralized `~/notes` repo. |
+| [project-notes](project-notes/SKILL.md) | Maintain a centralized notes repo documenting development process, design decisions, and research. |
 | [explainer](explainer/SKILL.md) | Teach a system/codebase/concept precisely and incrementally, calibrated to the user's background. |
 
 ## Installing a skill locally
