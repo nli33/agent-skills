@@ -10,13 +10,19 @@ Personal collection of agent skills.
 | [explainer](explainer/SKILL.md) | Teach a system/codebase/concept precisely and incrementally, calibrated to the user's background. |
 | [ai-writing](ai-writing/SKILL.md) | Reference list of surface patterns correlated with AI-generated vs human-written text. |
 
-## Installing a skill locally
+## Installing skills locally
 
-Claude Code loads a skill from `~/.claude/skills/<name>/SKILL.md`. Symlink the skill you want in
-from a clone of this repo, rather than copying it (so it stays in sync with `git pull`):
+Claude Code loads a skill from `~/.claude/skills/<name>/SKILL.md`. Run `sync.sh` from a clone of
+this repo to symlink every skill here into `~/.claude/skills` (skipping any that already exist and
+aren't already one of these symlinks), so `git pull` keeps them in sync without re-linking by hand:
 
 ```bash
-git clone git@github.com:nli33/agent-skills.git ~/skills   # once
-ln -s ~/agent-skills/<name> ~/.claude/agent-skills/<name>
+./sync.sh
+```
+
+To link in just one skill by hand instead:
+
+```bash
+ln -s "$(pwd)/<name>" ~/.claude/skills/<name>
 ```
 
