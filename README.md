@@ -8,6 +8,7 @@ Personal collection of agent skills.
 |---|---|
 | [project-notes](project-notes/SKILL.md) | Maintain a centralized notes repo documenting development process, design decisions, and research. |
 | [explainer](explainer/SKILL.md) | Teach a system/codebase/concept precisely and incrementally, calibrated to the user's background. |
+| [ai-vs-human-writing-patterns](ai-vs-human-writing-patterns/SKILL.md) | Reference list of surface patterns correlated with AI-generated vs human-written text. |
 
 ## Installing a skill locally
 
