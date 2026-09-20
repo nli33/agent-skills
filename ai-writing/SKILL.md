@@ -1,5 +1,5 @@
 ---
-name: ai-vs-human-writing-patterns
+name: ai-writing
 description: Use when asked to check, flag, or discuss whether text reads as AI-generated or human-written — analyzing an essay, email, post, or document for AI writing tells. Reference only; does not instruct rewriting or "humanizing" text.
 ---
 
