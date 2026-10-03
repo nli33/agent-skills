@@ -1,6 +1,6 @@
 ---
 name: ai-writing
-description: Use when asked to check, flag, or discuss whether text reads as AI-generated or human-written — analyzing an essay, email, post, or document for AI writing tells. Reference only; does not instruct rewriting or "humanizing" text.
+description: Use when asked to check, flag, or discuss whether text reads as AI-generated or human-written — analyzing an essay, email, post, or document for AI writing tells. Also use when writing or rewriting text to avoid em dashes. Otherwise reference only; does not instruct rewriting or "humanizing" text.
 ---
 
 # AI vs Human Writing Patterns
@@ -50,6 +50,17 @@ A reference list of surface patterns correlated with AI-generated vs human-writt
 **Imperfections** — typos, informal punctuation, sentence fragments, inconsistent capitalization, self-correction mid-thought.
 
 **Understatement or flat close** — endings that trail off or land plainly rather than a tidy summary bow.
+
+## Removing em dashes
+
+Applies when text is being written or rewritten to avoid em dashes. Do not swap each em dash for a comma. The result usually reads as unnatural, and it is still the same sentence with the same tell. Restructure the whole sentence instead: split it in two, move the aside into its own sentence, use parentheses or a colon where they actually fit, or fold the aside into the main clause.
+
+The worst case is the paired form, "X — Y — Z." Replacing both dashes with commas ("X, Y, Z") makes the aside read like a list item and often changes the meaning. Pull Y out and rebuild around it:
+
+- "The migration — which took three weeks — broke staging." becomes "The migration took three weeks and broke staging." or "The migration broke staging. It had taken three weeks."
+- "Our cache — despite the docs — is not thread-safe." becomes "The docs say otherwise, but our cache is not thread-safe."
+
+If the aside adds nothing, drop it.
 
 ## Using this list
 
